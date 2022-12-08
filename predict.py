@@ -67,6 +67,6 @@ for i, data in enumerate(dataloader):
     
     folder = ['input', 'label', 'result']
     for k, img in enumerate([input_image, label_image, result_image]):
-      path = './results/{}/{}_{}.png'.format(folder, i, j)
+      path = './results/{}/{}_{}.png'.format(folder[k], i, j)
       save_image(img, path)
     
