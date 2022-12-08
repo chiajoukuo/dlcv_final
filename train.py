@@ -6,7 +6,7 @@ import torch.optim as optim
 import numpy as np
 
 EPOCHS = 10
-NUM_OF_CLASSES = 32
+NUM_OF_CLASSES = 4
 BATCH_SIZE = 4
 LEARNING_RATE = 0.005
 
