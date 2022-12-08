@@ -10,7 +10,7 @@ from torchvision.utils import save_image
 from itertools import product
 
 NUM_OF_CLASSES = 4
-MODEL_NAME = './model_10.pth.tar'
+MODEL_NAME = './models/model_10.pth.tar'
 
 def build_color_map():
     # assumes no. of classes to be <= 64
