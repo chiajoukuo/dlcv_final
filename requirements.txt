@@ -1,5 +1,4 @@
 numpy
-pytorch
 scikit-image
 torchmetrics
 torchvision
