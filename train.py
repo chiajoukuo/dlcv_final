@@ -19,10 +19,9 @@ optimizer = optim.SGD(model.parameters(), lr=0.005, momentum=0.9)
 
 cuda_available = torch.cuda.is_available()
 if cuda_available:
-  model.cuda()
-  weight.cuda()
-  loss_fn = nn.CrossEntropyLoss(weight=weight)
-  loss_fn.cuda()
+  model = model.cuda()
+  weight = weight.cuda()
+  loss_fn = nn.CrossEntropyLoss(weight=weight).cuda()
 else:
   loss_fn = nn.CrossEntropyLoss(weight=weight)
 numsss = len(trainset)
@@ -33,8 +32,8 @@ for epoch in range(1, EPOCHS+1):
   for i, data in enumerate(trainloader, 1):
     images, labels = data
     if cuda_available:
-      images.cuda()
-      labels.cuda()
+      images = images.cuda()
+      labels = labels.cuda()
     optimizer.zero_grad()
     output = model(images)
     loss = loss_fn(output, labels)
