@@ -42,7 +42,6 @@ for epoch in range(1, EPOCHS+1):
 
     loss_sum += loss.item()
     print('{} / {}'.format(i, numsss), '\r')
-    break
   print('Epoch {} loss {}'.format(epoch, loss))
   torch.save({'epoch': EPOCHS, 'state_dict': model.state_dict(), 'optimizer' : optimizer.state_dict()}, './models/model_{}.pth.tar'.format(epoch))
 
