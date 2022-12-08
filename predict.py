@@ -57,8 +57,8 @@ for i, data in enumerate(dataloader):
 
   for j in range(result.shape[0]):
     input_image = images[j]
-    label_image = color_map[labels[i]].permute(2, 0, 1).to(torch.float).dic(255.0)
-    result_image = color_map[result[i]].permute(2, 0, 1).to(torch.float).dic(255.0)
+    label_image = color_map[labels[i]].permute(2, 0, 1).to(torch.float).div(255.0)
+    result_image = color_map[result[i]].permute(2, 0, 1).to(torch.float).div(255.0)
 
     if cuda_available:
       input_image =input_image.cuda()
