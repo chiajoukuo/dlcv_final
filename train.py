@@ -15,13 +15,16 @@ weight = torch.tensor([1.0/NUM_OF_CLASSES]*NUM_OF_CLASSES)
 
 model = SegNet(in_chn=3, out_chn=NUM_OF_CLASSES, BN_momentum=0.5)
 optimizer = optim.SGD(model.parameters(), lr=0.005, momentum=0.9)
-loss_fn = nn.CrossEntropyLoss(weight=weight)
+
 
 cuda_available = torch.cuda.is_available()
 if cuda_available:
   model.cuda()
   weight.cuda()
+  loss_fn = nn.CrossEntropyLoss(weight=weight)
   loss_fn.cuda()
+else:
+  loss_fn = nn.CrossEntropyLoss(weight=weight)
 numsss = len(trainset)
 
 for epoch in range(1, EPOCHS+1):
