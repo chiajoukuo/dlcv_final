@@ -5,16 +5,18 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-EPOCHS = 5
-NUM_OF_CLASSES = 2
+EPOCHS = 10
+NUM_OF_CLASSES = 32
+BATCH_SIZE = 4
+LEARNING_RATE = 0.005
 
 trainset = Pavements('./CamVid/train', './CamVid/train_labels')
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True) #, num_workers=4)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=True) #, num_workers=4)
 
 weight = torch.tensor([1.0/NUM_OF_CLASSES]*NUM_OF_CLASSES)
 
 model = SegNet(in_chn=3, out_chn=NUM_OF_CLASSES, BN_momentum=0.5)
-optimizer = optim.SGD(model.parameters(), lr=0.005, momentum=0.9)
+optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=0.9)
 
 
 cuda_available = torch.cuda.is_available()
