@@ -11,15 +11,16 @@ NUM_OF_CLASSES = 2
 trainset = Pavements('./CamVid/train', './CamVid/train_labels')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True) #, num_workers=4)
 
-weight = [1.0/NUM_OF_CLASSES]*NUM_OF_CLASSES
+weight = torch.tensor([1.0/NUM_OF_CLASSES]*NUM_OF_CLASSES)
 
 model = SegNet(in_chn=3, out_chn=NUM_OF_CLASSES, BN_momentum=0.5)
 optimizer = optim.SGD(model.parameters(), lr=0.005, momentum=0.9)
-loss_fn = nn.CrossEntropyLoss(weight=torch.tensor(weight))
+loss_fn = nn.CrossEntropyLoss(weight=weight)
 
 cuda_available = torch.cuda.is_available()
 if cuda_available:
   model.cuda()
+  weight = weight.suda()
   loss_fn.cuda()
 numsss = len(trainset)
 
@@ -38,7 +39,7 @@ for epoch in range(1, EPOCHS+1):
     optimizer.step()
 
     loss_sum += loss.item()
-    print('{} / {}', i, len(numsss))
+    print('{} / {}', i, numsss)
   print('Epoch {} loss {}'.format(epoch, loss))
   torch.save({'epoch': EPOCHS, 'state_dict': model.state_dict(), 'optimizer' : optimizer.state_dict()}, './model_{}.pth.tar'.format(epoch))
 
