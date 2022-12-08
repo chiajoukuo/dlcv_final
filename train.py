@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-EPOCHS = 1
+EPOCHS = 5
 NUM_OF_CLASSES = 2
 
 trainset = Pavements('./CamVid/train', './CamVid/train_labels')
@@ -21,26 +21,24 @@ cuda_available = torch.cuda.is_available()
 if cuda_available:
   model.cuda()
   loss_fn.cuda()
-
+numsss = len(trainset)
 
 for epoch in range(1, EPOCHS+1):
-  print('Epock {}'.format(epoch), '\r')
+  print('Epock {}'.format(epoch))
   loss_sum = 0.0
   for i, data in enumerate(trainloader, 1):
     images, labels = data
-    print(images.size(), labels.size())
     if cuda_available:
       images.cuda()
       labels.cuda()
     optimizer.zero_grad()
     output = model(images)
-    print(i, output.size(), labels.size())
     loss = loss_fn(output, labels)
     loss.backward()
     optimizer.step()
 
     loss_sum += loss.item()
-  
+    print('{} / {}', i, len(numsss))
   print('Epoch {} loss {}'.format(epoch, loss))
-torch.save({'epoch': EPOCHS, 'state_dict': model.state_dict(), 'optimizer' : optimizer.state_dict()}, './model.pth.tar')
+  torch.save({'epoch': EPOCHS, 'state_dict': model.state_dict(), 'optimizer' : optimizer.state_dict()}, './model_{}.pth.tar'.format(epoch))
 
