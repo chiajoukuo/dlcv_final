@@ -20,7 +20,7 @@ loss_fn = nn.CrossEntropyLoss(weight=weight)
 cuda_available = torch.cuda.is_available()
 if cuda_available:
   model.cuda()
-  weight = weight.suda()
+  weight.cuda()
   loss_fn.cuda()
 numsss = len(trainset)
 
